@@ -1,5 +1,5 @@
 #pragma once
-
+#include <utility>
 
 
 namespace TrackingPlatform {
@@ -14,6 +14,7 @@ namespace TrackingPlatform {
 		void set_end(float end);
 		void set_step(float step);
 		void set_pwm_timeout(float timeout);
+		std::pair<int, int>get_range() const;
 
 		// Get methods
 		float begin();

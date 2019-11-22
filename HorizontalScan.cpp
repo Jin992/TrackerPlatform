@@ -15,7 +15,7 @@ namespace TrackingPlatform {
 			// Elevate by step y position
 			tracker().elevate_to(i, tilt().pwm_timeout());
 			// Move x axis from begin of range to end 
-			for (float j = pan().begin(); j != pan().end(); j += pan().step()) {
+			for (float j = pan().begin(); j <= pan().end(); j += pan().step()) {
 				tracker().move_to_athimuth(j, pan().pwm_timeout());
 				// if callback return false break the loop
 				if (!callback(j, i)) // invoke callback
@@ -50,7 +50,7 @@ namespace TrackingPlatform {
 			i += tilt().step();
 			tracker().elevate_to(i, tilt().pwm_timeout());
 			// Move x axis from begin of range to end 
-			for (float j = pan().begin(); j != pan().end(); j += pan().step()) {
+			for (float j = pan().begin(); j <= pan().end(); j += pan().step()) {
 				tracker().move_to_athimuth(j, pan().pwm_timeout());
 				// if callback return false break the loop
 				if (!callback(j, i)) // invoke callback

@@ -10,7 +10,7 @@
 
 #define TILT_ID 1
 #define TILT_PWM_BEGIN 4000
-#define TILT_PWM_END 6400
+#define TILT_PWM_END 6600
 #define TILT_PWM_CENTER 5100
 #define TILT_RANGE 90
 

@@ -5,8 +5,8 @@
 namespace TrackingPlatform {
 	TrackingPlatform::TrackingPlatform()
 		: _maestro_id(MAESTRO_ID),
-		_pan(PAN_ID, PAN_PWM_BEGIN, PAN_PWM_CENTER, PAN_PWM_END, PAN_RANGE),
-		_tilt(TILT_ID, TILT_PWM_BEGIN, TILT_PWM_CENTER, TILT_PWM_END, TILT_RANGE),
+		_pan(PAN_ID, PAN_PWM_BEGIN, PAN_PWM_CENTER, PAN_PWM_END, PAN_RANGE, 2,2),
+		_tilt(TILT_ID, TILT_PWM_BEGIN, TILT_PWM_CENTER, TILT_PWM_END, TILT_RANGE,2,2),
 		_pan_prev_pwm(_pan.center()), _tilt_prev_pwm(_tilt.end())
 	{}
 
@@ -98,5 +98,32 @@ namespace TrackingPlatform {
 		else if (pwm_distance >= 1080)
 			timer_mod = pwm_distance * PWM_DISTANCE_MOD_360;
 		return timer_mod;
+	}
+
+	void TrackingPlatform::to_postion(float athim, float elev) {
+		int32_t move_pwm = abs(round(athim * (_pan.one_degree_pos() + 0.8)));
+		if (athim >= 0) {
+			_cur_pwm = _pan.center() - move_pwm;
+			if (_cur_pwm < _pan.begin())
+				return;
+		} else {
+			_cur_pwm = _pan.center() + move_pwm;;
+			if (_cur_pwm > _pan.end())
+				return;
+		}
+		float distance_to_move = abs(_pan_prev_pwm - _cur_pwm);
+		_pan_prev_pwm = _cur_pwm;
+		_serial_port->setTargetPP(_maestro_id, _pan.channel_id(), _cur_pwm);
+		Utils::sleep(200);
+		int32_t move_pwm1 = abs(round(elev * (_tilt.one_degree_pos())));
+		int32_t pwm = 0;
+		if (elev >= 0 && elev <= 90) {
+			pwm = _tilt.end() - move_pwm1;
+			//std::cout << "pwm " << pwm << " begin " << _tilt.begin() << " end " << _tilt.end() << std::endl;
+			if (pwm < _tilt.begin() || pwm > _tilt.end())
+				return;
+			_tilt_prev_pwm = pwm;
+			_serial_port->setTargetPP(_maestro_id, _tilt.channel_id(), pwm);
+		}
 	}
 }

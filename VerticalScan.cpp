@@ -15,7 +15,7 @@ namespace TrackingPlatform {
 			tracker().move_to_athimuth(i, pan().pwm_timeout());
 			for (float j = tilt().begin(); j <= tilt().end(); j += tilt().step()) {
 				tracker().elevate_to(j, tilt().pwm_timeout());
-				if (!callback(j, i)) // invoke callback
+				if (!callback(i, j)) // invoke callback
 					break;
 			}
 
@@ -25,7 +25,7 @@ namespace TrackingPlatform {
 
 			for (float j = tilt().end(); j >= tilt().begin(); j -= tilt().step()) {
 				tracker().elevate_to(j, tilt().pwm_timeout());
-				if (!callback(j, i)) // invoke callback
+				if (!callback(i, j)) // invoke callback
 					break;
 			}
 		}
@@ -37,7 +37,7 @@ namespace TrackingPlatform {
 
 			for (float j = tilt().end(); j >= tilt().begin(); j -= tilt().step()) {
 				tracker().elevate_to(j, tilt().pwm_timeout());
-				if (!callback(j, i)) // invoke callback
+				if (!callback(i, j)) // invoke callback
 					break;
 			}
 
@@ -46,7 +46,7 @@ namespace TrackingPlatform {
 
 			for (float j = tilt().begin(); j <= tilt().end(); j += tilt().step()) {
 				tracker().elevate_to(j, tilt().pwm_timeout());
-				if (!callback(j, i)) // invoke callback
+				if (!callback(i, j)) // invoke callback
 					break;
 			}
 		}
