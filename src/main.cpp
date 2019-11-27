@@ -35,7 +35,7 @@ int main() {
 
 	std::cout << pp.first << " " << pp.second << std::endl;
 	std::cout << tt.first << " " << tt.second << std::endl;
-	TrackingPlatform::Camera cap1(2304, 1536, 180, 5, 70, 5, "test");
+	TrackingPlatform::Camera cap1(180, 5, 70, 5, "test");
 	cap1.start_image();
 	// Create scan object 
 	//TrackingPlatform::HorizontalScan hScan(tracker, pan, tilt, [](float athimuth, float elevation)->bool { std::cout << "Athimuth : " << athimuth << " Elevation : " << elevation << std::endl; Utils::sleep(2000); return true; });

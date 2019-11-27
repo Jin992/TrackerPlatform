@@ -21,6 +21,7 @@ namespace TrackingPlatform {
 		float end();
 		float step();
 		float pwm_timeout();
+		float full_range();
 
 	private:
 		float _begin;			// Begin of range

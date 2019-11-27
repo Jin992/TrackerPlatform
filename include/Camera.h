@@ -1,10 +1,15 @@
 #include <opencv2/opencv.hpp>
+#include "Range.h"
 
 namespace TrackingPlatform {
 
+	#define CAM_WIDTH 2304
+	#define CAM_HEIGHT 1536
+
 	class Camera {
 	public:
-		Camera(unsigned width, unsigned height, unsigned x_range, unsigned x_step, unsigned y_range, unsigned y_step, std::string name);
+		Camera(unsigned x_range, unsigned x_step, unsigned y_range, unsigned y_step, std::string name);
+		Camera(Range &pan, Range &tilt, std::string name);
 		~Camera();
 		void shot();
 		void start_image();
