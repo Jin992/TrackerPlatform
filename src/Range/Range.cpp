@@ -53,6 +53,10 @@ namespace TrackingPlatform {
 		return _pwm_timeout;
 	}
 
+	float Range::full_range() {
+		return abs(_begin) + abs(_end);
+	}
+
 	std::pair<int, int> Range::get_range() const {
 		int q1 = abs(0 - _begin) / _step;
 		int q2 = abs(0 - _end) / _step;
